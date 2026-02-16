@@ -1,0 +1,24 @@
+version: "3"
+
+vars:
+  # Variables
+  RG: "lab-gitops-rg"
+  LOC: "eastus2"
+  ACR_NAME: "acrgitopslab$(date +%s)"
+
+tasks:
+  create_rg:
+    desc: Create an Azure Resource Group
+    cmds:
+      - az group create -n {{.RG}} -l {{.LOC}}
+
+  delete_rg:
+    desc: Create an Azure Resource Group
+    cmds:
+      - az group delete --resource-group {{.RG}} -y
+      - echo "Resourse {{.RG}} was deleted."
+
+  create_acr:
+    desc: Create a Azure Container Registry
+    cmds:
+      - az acr create -g {{.RG}} -n {{.ACR_NAME}} --sku Basic --admin-enabled true
