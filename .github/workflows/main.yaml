@@ -1,11 +1,11 @@
 name: CI/CD Pipeline
 
-on:
-  push:
-    branches: ["main"]
-    paths:
-      - "app/**" # Solo se activa si cambias el código de la app
-      - "k8s/**" # O si cambias los manifiestos
+# on:
+#   push:
+#     branches: ["main"]
+#     paths:
+#       - "app/**" # Solo se activa si cambias el código de la app
+#       - "k8s/**" # O si cambias los manifiestos
 
 permissions:
   contents: write # Necesario para que el bot de GitHub pueda actualizar el YAML
