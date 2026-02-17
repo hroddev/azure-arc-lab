@@ -4,7 +4,7 @@ vars:
   # Variables
   RG: "lab-gitops-rg"
   LOC: "eastus2"
-  ACR_NAME: "acrgitopslab$(date +%s)"
+  ACR_NAME: "acrgitopslabhrod"
 
 tasks:
   create_rg:
@@ -22,3 +22,14 @@ tasks:
     desc: Create a Azure Container Registry
     cmds:
       - az acr create -g {{.RG}} -n {{.ACR_NAME}} --sku Basic --admin-enabled true
+
+  get_cred:
+    desc: Get ACR credentials
+    vars:
+      ACR_USER:
+        sh: az acr credential show -n {{.ACR_NAME}} --query "username"
+      ACR_PASS:
+        sh: az acr credential show -n {{.ACR_NAME}} --query "passwords[0].value"
+    cmds:
+      - echo "Username {{.ACR_USER}}"
+      - echo "Pass {{.ACR_PASS}}"
